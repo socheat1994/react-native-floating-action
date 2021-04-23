@@ -5,10 +5,11 @@ import {
   Image,
   Animated,
   Dimensions,
-  TouchableOpacity,
   LayoutAnimation,
   Platform,
-  Keyboard
+  Keyboard,
+  View,
+  TouchableOpacity as iOSTouchableOpacity
 } from "react-native";
 
 import FloatingActionItem from "./FloatingActionItem";
@@ -16,7 +17,9 @@ import AddIcon from "./AddIcon";
 
 import { isIphoneX } from "./utils/platform";
 import { getTouchableComponent, getRippleProps } from "./utils/touchable";
+import {TouchableOpacity as AndroidTouchableOpacity} from 'react-native-gesture-handler'
 
+const TouchableOpacity = Platform.OS === "android" ? AndroidTouchableOpacity : iOSTouchableOpacity
 const DEVICE_WIDTH = Dimensions.get("window").width;
 
 const DEFAULT_SHADOW_PROPS = {
@@ -231,6 +234,7 @@ class FloatingAction extends Component {
   };
 
   animateButton = () => {
+    console.log('onamiteate => ')
     const {
       overrideWithAction,
       actions,
@@ -282,6 +286,7 @@ class FloatingAction extends Component {
         },
         () => {
           if (onOpen) {
+            // console.log('onopen')
             onOpen();
           }
         }
@@ -526,11 +531,14 @@ class FloatingAction extends Component {
 
     // TouchableOpacity don't require a child
     return (
+      <View style={[styles.overlay, { backgroundColor: overlayColor }]}>
       <TouchableOpacity
         activeOpacity={1}
-        style={[styles.overlay, { backgroundColor: overlayColor }]}
+        style={{  width: '100%', height: '100%' }}
         onPress={this.handlePressBackdrop}
-      />
+      >
+      </TouchableOpacity>
+      </View>
     );
   }
 
