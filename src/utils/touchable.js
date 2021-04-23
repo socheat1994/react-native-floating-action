@@ -1,16 +1,18 @@
+import {  } from "react-native";
 import {
   Platform,
-  TouchableOpacity,
-  TouchableNativeFeedback
+  TouchableNativeFeedback as iOSTouchableNativeFeedback,
+  TouchableOpacity as iOSTouchableOpacity
 } from "react-native";
+import {TouchableNativeFeedback as AndroidTouchableNativeFeedback, TouchableOpacity as AndroidTouchableOpacity  } from "react-native-gesture-handler";
 
 import { shadeColor } from "./color";
 
 export function getTouchableComponent(useNativeFeedback = true) {
   if (useNativeFeedback === true && Platform.OS === "android") {
-    return TouchableNativeFeedback;
+    return Platform.OS === "android" ? AndroidTouchableNativeFeedback : iOSTouchableNativeFeedback;
   }
-  return TouchableOpacity;
+  return Platform.OS === "android" ? AndroidTouchableOpacity : iOSTouchableOpacity;
 }
 
 export function getRippleProps(color, useNativeFeedback = true) {
@@ -21,7 +23,7 @@ export function getRippleProps(color, useNativeFeedback = true) {
     Platform.Version >= 21
   ) {
     return {
-      background: TouchableNativeFeedback.Ripple(shadeColor(color, -30), true)
+      background: Platform.OS === "android" ? AndroidTouchableNativeFeedback.Ripple(shadeColor(color, -30), true) : iOSTouchableNativeFeedback.Ripple(shadeColor(color, -30), true)
     };
   }
   return {};
