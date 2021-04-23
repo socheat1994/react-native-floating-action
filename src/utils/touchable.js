@@ -1,4 +1,3 @@
-import {  } from "react-native";
 import {
   Platform,
   TouchableNativeFeedback as iOSTouchableNativeFeedback,
