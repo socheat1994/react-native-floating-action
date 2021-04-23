@@ -183,9 +183,9 @@ class FloatingActionItem extends Component {
     }
 
     return (
+      <View style={styles.container}>
       <Touchable
         activeOpacity={0.4}
-        style={styles.container}
         onPress={this.handleOnPress}
       >
         <Animated.View
@@ -203,6 +203,7 @@ class FloatingActionItem extends Component {
           {components}
         </Animated.View>
       </Touchable>
+      </View>
     );
   }
 }
