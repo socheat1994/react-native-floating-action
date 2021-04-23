@@ -234,7 +234,6 @@ class FloatingAction extends Component {
   };
 
   animateButton = () => {
-    console.log('onamiteate => ')
     const {
       overrideWithAction,
       actions,
@@ -286,7 +285,6 @@ class FloatingAction extends Component {
         },
         () => {
           if (onOpen) {
-            // console.log('onopen')
             onOpen();
           }
         }
